@@ -14,16 +14,12 @@
     <img src="#">
 
     <script>
-        function get_image() {
+        async function get_image() {
 
             const img = document.querySelector('img');
-            fetch('https://api.giphy.com/v1/gifs/translate?api_key=ReMyB3nWacZjPOarisnZy0eynP04J9ot&s=' + `${search.value}`, { mode: 'cors' })
-                .then((response) => {
-                    return response.json() //whats being returned is another Promise
-                })                          //to get the date, we need another .then function
-                .then((response) => {
-                    img.src = response.data.images.original.url
-                })
+            response = await fetch('https://api.giphy.com/v1/gifs/translate?api_key=ReMyB3nWacZjPOarisnZy0eynP04J9ot&s=' + `${search.value}`, { mode: 'cors' })
+            const img_data = await response.json() //Because .json() returns a promise, we can use await to assign the response to a variable.
+            img.src = img_data.data.images.original.url;
         }
         gif_button = document.querySelector(".gif-generate")
         search = document.querySelector(".search")
