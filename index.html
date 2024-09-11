@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <form>
+        <input type="text" class="search">
+    </form>
+    <button type="button" class="gif-generate"> Generate new gif</button>
+    <img src="#">
+
+    <script>
+        function get_image() {
+
+            const img = document.querySelector('img');
+            fetch('https://api.giphy.com/v1/gifs/translate?api_key=ReMyB3nWacZjPOarisnZy0eynP04J9ot&s=' + `${search.value}`, { mode: 'cors' })
+                .then((response) => {
+                    return response.json() //whats being returned is another Promise
+                })                          //to get the date, we need another .then function
+                .then((response) => {
+                    img.src = response.data.images.original.url
+                })
+        }
+        gif_button = document.querySelector(".gif-generate")
+        search = document.querySelector(".search")
+        gif_button.addEventListener("click", get_image)
+
+    </script>
+</body>
+
+</html>
